@@ -38,7 +38,7 @@ public class MyPrinter {
 			if (state) {
 				toast("Papel ok");
 			} else {
-				toast("Sem papel"));
+				toast("Sem papel");
 			}
 		}
 
@@ -66,7 +66,7 @@ public class MyPrinter {
 	public MyPrinter() {
 	}
 
-	public void setAddress(address) {
+	public void setAddress(String address) {
 		mAddress = address;
 	}
 
