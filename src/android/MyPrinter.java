@@ -66,6 +66,7 @@ public class MyPrinter {
 	private boolean mRestart;
 	private String mAddress;
 	private CordovaInterface mCordova;
+	private CallbackContext mConnectCallbackContext;
 
 	public MyPrinter() {
 	}
@@ -80,6 +81,7 @@ public class MyPrinter {
 
 	public synchronized void connect(CallbackContext callbackContext) {
 		mRestart = true;
+		mConnectCallbackContext = callbackContext;
 		closeActiveConnection();
 		String address = mAddress;
 		if (BluetoothAdapter.checkBluetoothAddress(address)) {
@@ -129,7 +131,7 @@ public class MyPrinter {
 				}
 			});
 				
-			connect();
+			connect(mConnectCallbackContext);
 		}
 	}
 
