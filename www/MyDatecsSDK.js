@@ -3,7 +3,7 @@ var exec = require('cordova/exec');
 var myDatecsSDK = {
     platforms: ['android'],
 
-    isSupported = function() {
+    isSupported: function() {
         if (window.device) {
             var platform = window.device.platform;
             if ((platform !== undefined) && (platform !== null)) {
@@ -13,11 +13,11 @@ var myDatecsSDK = {
         return false;
     },
 
-    connect = function(address, onSuccess, onError) {
+    connect: function(address, onSuccess, onError) {
         exec(onSuccess, onError, 'MyDatecsSDK', 'connect', [address]);
     },
 
-    printText = function(text, onSuccess, onError) {
+    printText: function(text, onSuccess, onError) {
         exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text]);
     }
 };
