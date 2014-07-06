@@ -23,6 +23,8 @@
 			<clobbers target="myDatecsSDK" />
 		</js-module>
 
+		<source-file src="src/android/com.datecs.api.jar" target-dir="libs" framework="true" />
+		<source-file src="src/android/MyPrinter.java" target-dir="src/br/com/mytdt/print" />
 		<source-file src="src/android/MyDatecsSDK.java" target-dir="src/br/com/mytdt/print" />
 
 	</platform>

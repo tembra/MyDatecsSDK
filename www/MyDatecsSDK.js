@@ -17,8 +17,12 @@ var myDatecsSDK = {
         exec(onSuccess, onError, 'MyDatecsSDK', 'connect', [address]);
     },
 
-    printText: function(text, onSuccess, onError) {
-        exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text]);
+    disconnect: function(onSuccess, onError) {
+        exec(onSuccess, onError, 'MyDatecsSDK', 'connect', []);
+    },
+
+    printText: function(text, charset, onSuccess, onError) {
+        exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text, charset]);
     }
 };
 
