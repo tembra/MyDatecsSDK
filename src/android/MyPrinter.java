@@ -135,7 +135,7 @@ public class MyPrinter {
 		mCordova.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				if (!isFinishing()) {
+				if (!mCordova.getActivity().isFinishing()) {
 					Toast.makeText(mCordova.getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 				}
 			}
