@@ -251,9 +251,6 @@ public class MyPrinter {
 					mPrinter.printText(myText, myCharset);
 					mPrinter.feedPaper(100);
 					mPrinter.feedPaper(100);
-					mPrinter.feedPaper(100);
-					mPrinter.feedPaper(100);
-					mPrinter.feedPaper(100);
 					mPrinter.flush();
 					callbackContext.success();
 				} catch (IOException e) {
