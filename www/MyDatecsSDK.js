@@ -18,7 +18,7 @@ var myDatecsSDK = {
     },
 
     disconnect: function(onSuccess, onError) {
-        exec(onSuccess, onError, 'MyDatecsSDK', 'connect', []);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'disconnect', []);
     },
 
     printText: function(text, charset, onSuccess, onError) {

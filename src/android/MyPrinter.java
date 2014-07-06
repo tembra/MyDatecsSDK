@@ -193,7 +193,7 @@ public class MyPrinter {
 					out = mBluetoothSocket.getOutputStream();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao conectar. " +  e.getMessage(), mRestart);
+					error("Falha ao conectar: " +  e.getMessage(), mRestart);
 					return;
 				}
 				
@@ -201,11 +201,11 @@ public class MyPrinter {
 					initPrinter(in, out, callbackContext);
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao inicializar. " +  e.getMessage(), mRestart);
+					error("Falha ao inicializar: " +  e.getMessage(), mRestart);
 					return;
 				}
 			}
-		}, "título", "Conectando a impressora..");
+		}, "Impressora", "Conectando..");
 	}
 
 	protected void initPrinter(InputStream inputStream, OutputStream outputStream, CallbackContext callbackContext) throws IOException {
@@ -249,15 +249,15 @@ public class MyPrinter {
 				try {
 					mPrinter.reset();
 					mPrinter.printText(myText, myCharset);
-					mPrinter.feedPaper(100);
+					mPrinter.feedPaper(500);
 					mPrinter.flush();
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir texto. " + e.getMessage(), mRestart);
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "título", "Imprimindo texto..");
+		}, "Impressora", "Imprimindo..");
 	}
 
 }
