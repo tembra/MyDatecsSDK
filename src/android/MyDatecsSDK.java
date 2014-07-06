@@ -32,46 +32,58 @@ public class MyDatecsSDK extends CordovaPlugin {
     }
 
     private void connect(String address, CallbackContext callbackContext) {
-        if ((address != null) && (address.length() > 0)) {
-            try {
-                myPrinter.setCordova(cordova);
-                myPrinter.setAddress(address);
-                myPrinter.connect();
-                callbackContext.success();
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error(e.getMessage());
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                if ((address != null) && (address.length() > 0)) {
+                    try {
+                        myPrinter.setCordova(cordova);
+                        myPrinter.setAddress(address);
+                        myPrinter.connect();
+                        callbackContext.success();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        callbackContext.error(e.getMessage());
+                    }
+                } else {
+                    callbackContext.error("Informe o endereço do dispositivo.");
+                }
             }
-        } else {
-            callbackContext.error("Informe o endereço do dispositivo.");
         }
     }
 
     private void disconnect(CallbackContext callbackContext) {
-        try {
-            myPrinter.disconnect();
-            callbackContext.success();
-        } catch (Exception e) {
-            e.printStackTrace();
-            callbackContext.error(e.getMessage());
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    myPrinter.disconnect();
+                    callbackContext.success();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callbackContext.error(e.getMessage());
+                }
+            }
         }
     }
 
     private void printText(String text, String charset, CallbackContext callbackContext) {
-        if ((text != null) && (text.length() > 0)) {
-            String myCharset = "CP1252";
-            if ((charset != null) && (charset.length() > 0)) {
-                myCharset = charset;
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                if ((text != null) && (text.length() > 0)) {
+                    String myCharset = "CP1252";
+                    if ((charset != null) && (charset.length() > 0)) {
+                        myCharset = charset;
+                    }
+                    try {
+                        myPrinter.printText(text, myCharset);
+                        callbackContext.success();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        callbackContext.error(e.getMessage());
+                    }
+                } else {
+                    callbackContext.error("Informe o texto a ser impresso.");
+                }
             }
-            try {
-                myPrinter.printText(text, myCharset);
-                callbackContext.success();
-            } catch (Exception e) {
-                e.printStackTrace();
-                callbackContext.error(e.getMessage());
-            }
-        } else {
-            callbackContext.error("Informe o texto a ser impresso.");
         }
     }
 }
