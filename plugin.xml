@@ -25,10 +25,5 @@
 
 		<source-file src="src/android/MyDatecsSDK.java" target-dir="src/br/com/mytdt/print" />
 
-		<source-file src="src/android/BluetoothPlugin.java" target-dir="src/org/apache/cordova/bluetooth" />
-		<source-file src="src/android/BluetoothWrapper.java" target-dir="src/org/apache/cordova/bluetooth" />
-		<source-file src="src/android/BluetoothError.java" target-dir="src/org/apache/cordova/bluetooth" />
-		<source-file src="src/android/Pair.java" target-dir="src/org/apache/cordova/bluetooth" />
-
 	</platform>
 </plugin>
