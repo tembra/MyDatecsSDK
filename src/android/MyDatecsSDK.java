@@ -48,7 +48,7 @@ public class MyDatecsSDK extends CordovaPlugin {
                     callbackContext.error("Informe o endereço do dispositivo.");
                 }
             }
-        }
+        });
     }
 
     private void disconnect(CallbackContext callbackContext) {
@@ -62,7 +62,7 @@ public class MyDatecsSDK extends CordovaPlugin {
                     callbackContext.error(e.getMessage());
                 }
             }
-        }
+        });
     }
 
     private void printText(String text, String charset, CallbackContext callbackContext) {
@@ -84,6 +84,6 @@ public class MyDatecsSDK extends CordovaPlugin {
                     callbackContext.error("Informe o texto a ser impresso.");
                 }
             }
-        }
+        });
     }
 }
