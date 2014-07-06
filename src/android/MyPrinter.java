@@ -249,7 +249,11 @@ public class MyPrinter {
 				try {
 					mPrinter.reset();
 					mPrinter.printText(myText, myCharset);
-					mPrinter.feedPaper(500);
+					mPrinter.feedPaper(100);
+					mPrinter.feedPaper(100);
+					mPrinter.feedPaper(100);
+					mPrinter.feedPaper(100);
+					mPrinter.feedPaper(100);
 					mPrinter.flush();
 					callbackContext.success();
 				} catch (IOException e) {
