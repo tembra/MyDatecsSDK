@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin id="br.com.mytdt.print.mydatecssdk" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>MyDatecsSDK</name>
+	<name>MyDatecsSDK</name>
 
 	<description>
 		Allows access to Datecs printer SDK functions.
@@ -15,13 +15,13 @@
 		</config-file>
 
 		<config-file target="AndroidManifest.xml" parent="/manifest">
-    		<uses-permission android:name="android.permission.BLUETOOTH" />
-    		<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+			<uses-permission android:name="android.permission.BLUETOOTH" />
+			<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 		</config-file>
 
-	    <js-module name="MyDatecsSDK" src="www/MyDatecsSDK.js">
-	        <clobbers target="myDatecsSDK" />
-	    </js-module>
+		<js-module name="MyDatecsSDK" src="www/MyDatecsSDK.js">
+			<clobbers target="myDatecsSDK" />
+		</js-module>
 
 		<source-file src="src/android/MyDatecsSDK.java" target-dir="src/br/com/mytdt/print" />
 
