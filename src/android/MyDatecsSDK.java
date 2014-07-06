@@ -34,6 +34,7 @@ public class MyDatecsSDK extends CordovaPlugin {
     private void connect(String address, CallbackContext callbackContext) {
         if ((address != null) && (address.length() > 0)) {
             try {
+                myPrinter.setCordova(cordova);
                 myPrinter.setAddress(address);
                 myPrinter.connect();
                 callbackContext.success();

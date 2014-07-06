@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import org.apache.cordova.CordovaInterface;
+
 import com.datecs.api.printer.Printer;
 import com.datecs.api.printer.ProtocolAdapter;
 
@@ -62,12 +64,17 @@ public class MyPrinter {
 	private BluetoothSocket mBluetoothSocket;
 	private boolean mRestart;
 	private String mAddress;
+	private CordovaInterface mCordova;
 
 	public MyPrinter() {
 	}
 
 	public void setAddress(String address) {
 		mAddress = address;
+	}
+
+	public void setCordova(CordovaInterface cordova) {
+		mCordova = cordova;
 	}
 
 	public synchronized void connect() {
@@ -113,10 +120,10 @@ public class MyPrinter {
 
 	private void error(final String text, boolean resetConnection) {
 		if (resetConnection) {
-			cordova.getActivity().runOnUiThread(new Runnable() {
+			mCordova.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					Toast.makeText(cordova.getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+					Toast.makeText(mCordova.getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 				}
 			});
 				
@@ -125,11 +132,11 @@ public class MyPrinter {
 	}
 
 	private void toast(final String text) {
-		cordova.getActivity().runOnUiThread(new Runnable() {
+		mCordova.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				if (!isFinishing()) {
-					Toast.makeText(cordova.getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+					Toast.makeText(mCordova.getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -137,11 +144,11 @@ public class MyPrinter {
 
 	private void doJob(final Runnable job, final String jobTitle, final String jobName) {
 		// Start the job from main thread
-		cordova.getActivity().runOnUiThread(new Runnable() {
+		mCordova.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				// Progress dialog available due job execution
-				final ProgressDialog dialog = new ProgressDialog(cordova.getActivity());
+				final ProgressDialog dialog = new ProgressDialog(mCordova.getActivity());
 				dialog.setTitle(jobTitle);
 				dialog.setMessage(jobName);
 				dialog.setCancelable(false);
@@ -230,7 +237,7 @@ public class MyPrinter {
 		}
 	}
 
-	private void printText(String myText, String myCharset) {
+	public void printText(String myText, String myCharset) {
 		final String printText = myText;
 		final String printCharset = myCharset;
 		doJob(new Runnable() {
