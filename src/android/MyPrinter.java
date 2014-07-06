@@ -78,7 +78,7 @@ public class MyPrinter {
 		mCordova = cordova;
 	}
 
-	public synchronized void connect(callbackContext) {
+	public synchronized void connect(CallbackContext callbackContext) {
 		mRestart = true;
 		closeActiveConnection();
 		String address = mAddress;
