@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CallbackContext;
 
 import com.datecs.api.printer.Printer;
 import com.datecs.api.printer.ProtocolAdapter;
@@ -77,18 +78,19 @@ public class MyPrinter {
 		mCordova = cordova;
 	}
 
-	public synchronized void connect() {
+	public synchronized void connect(callbackContext) {
 		mRestart = true;
 		closeActiveConnection();
 		String address = mAddress;
 		if (BluetoothAdapter.checkBluetoothAddress(address)) {
-			establishBluetoothConnection(address);
+			establishBluetoothConnection(address, callbackContext);
 		}
 	}
 
-	public synchronized void disconnect() {
+	public synchronized void disconnect(CallbackContext callbackContext) {
 		mRestart = false;
 		closeActiveConnection();
+		callbackContext.success();
 	}
 
 	private synchronized void closeBluetoothConnection() {
@@ -170,7 +172,7 @@ public class MyPrinter {
 		});
 	}
 
-	private void establishBluetoothConnection(final String address) {
+	private void establishBluetoothConnection(final String address, final CallbackContext callbackContext) {
 		doJob(new Runnable() {
 			@Override
 			public void run() {
@@ -194,7 +196,7 @@ public class MyPrinter {
 				}
 				
 				try {
-					initPrinter(in, out);
+					initPrinter(in, out, callbackContext);
 				} catch (IOException e) {
 					e.printStackTrace();
 					error("Falha ao inicializar. " +  e.getMessage(), mRestart);
@@ -204,7 +206,7 @@ public class MyPrinter {
 		}, "título", "Conectando a impressora..");
 	}
 
-	protected void initPrinter(InputStream inputStream, OutputStream outputStream) throws IOException {
+	protected void initPrinter(InputStream inputStream, OutputStream outputStream, CallbackContext callbackContext) throws IOException {
 		mProtocolAdapter = new ProtocolAdapter(inputStream, outputStream);
 
 		if (mProtocolAdapter.isProtocolEnabled()) {
@@ -235,19 +237,19 @@ public class MyPrinter {
 		} else {
 			mPrinter = new Printer(mProtocolAdapter.getRawInputStream(), mProtocolAdapter.getRawOutputStream());
 		}
+		callbackContext.success();
 	}
 
-	public void printText(String myText, String myCharset) {
-		final String printText = myText;
-		final String printCharset = myCharset;
+	public void printText(final String myText, final String myCharset, final CallbackContext callbackContext) {
 		doJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					mPrinter.reset();
-					mPrinter.printText(printText, printCharset);
+					mPrinter.printText(myText, myCharset);
 					mPrinter.feedPaper(100);
 					mPrinter.flush();
+					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
 					error("Falha ao imprimir texto. " + e.getMessage(), mRestart);
