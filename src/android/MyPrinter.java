@@ -242,16 +242,147 @@ public class MyPrinter {
 		callbackContext.success();
 	}
 
-	public void printText(final String myText, final String myCharset, final CallbackContext callbackContext) {
+	public void reset(final CallbackContext callbackContext) {
 		doJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					mPrinter.reset();
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void printText(final String myText, final String myCharset, final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
 					mPrinter.printText(myText, myCharset);
-					mPrinter.feedPaper(100);
-					mPrinter.feedPaper(100);
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void printTaggedText(final String myText, final String myCharset, final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mPrinter.printTaggedText(myText, myCharset);
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void feedPaper(final int lines, final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mPrinter.feedPaper(lines);
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void flush(final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
 					mPrinter.flush();
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void selectPageMode(final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mPrinter.selectPageMode();
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void selectStandardMode(final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mPrinter.selectStandardMode();
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void printPage(final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mPrinter.printPage();
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void setAlign(final int align, final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mPrinter.setAlign(align);
+					callbackContext.success();
+				} catch (IOException e) {
+					e.printStackTrace();
+					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+				}
+			}
+		}, "Impressora", "Imprimindo..");
+	}
+
+	public void printSelfTest(final CallbackContext callbackContext) {
+		doJob(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mPrinter.printSelfTest();
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
