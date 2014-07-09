@@ -144,15 +144,18 @@ public class MyDatecsSDK extends CordovaPlugin {
             public void run() {
                 if ((text != null) && (text.length() > 0)) {
                     String myCharset = "CP1252";
+                    callbackContext.success(myCharset);
                     if ((charset != null) && (charset.length() > 0)) {
                         myCharset = charset;
                     }
+                    //callbackContext.success(myCharset);
+                    /*
                     try {
                         myPrinter.printTaggedText(text, myCharset, callbackContext);
                     } catch (Exception e) {
                         e.printStackTrace();
                         callbackContext.error(e.getMessage());
-                    }
+                    }*/
                 } else {
                     callbackContext.error("Informe o texto a ser impresso.");
                 }
