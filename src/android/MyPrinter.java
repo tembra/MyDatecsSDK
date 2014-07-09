@@ -276,13 +276,13 @@ public class MyPrinter {
 		doJob(new Runnable() {
 			@Override
 			public void run() {
+				callbackContext.success(myCharset);/*
 				try {
-					//mPrinter.printTaggedText(myText, myCharset);
-					callbackContext.success(myCharset);
+					mPrinter.printTaggedText(myText, myCharset);
 				} catch (IOException e) {
 					e.printStackTrace();
 					error("Falha ao imprimir: " + e.getMessage(), mRestart);
-				}
+				}*/
 			}
 		}, "Impressora", "Imprimindo..");
 	}
