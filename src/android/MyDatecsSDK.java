@@ -43,7 +43,8 @@ public class MyDatecsSDK extends CordovaPlugin {
         } else if (ACTION_PRINT_TAGGED_TEXT.equals(action)) {
             String text = args.getString(0);
             String charset = args.getString(1);
-            this.printTaggedText(text, charset, callbackContext);
+            callbackContext.success(charset);
+            //this.printTaggedText(text, charset, callbackContext);
             return true;
         } else if (ACTION_FEED_PAPER.equals(action)) {
             int lines = args.getInt(0);

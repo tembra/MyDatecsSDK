@@ -34,11 +34,12 @@ var myDatecsSDK = {
     },
 
     printTaggedText: function(text, charset, onSuccess, onError) {
-        if (typeof(charset) == 'undefined') {
+        exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
+        /*if (typeof(charset) == 'undefined') {
             exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text]);
         } else {
             exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
-        }
+        }*/
     },
 
     feedPaper: function(lines, onSuccess, onError) {
