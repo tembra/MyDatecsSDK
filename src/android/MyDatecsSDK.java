@@ -144,7 +144,6 @@ public class MyDatecsSDK extends CordovaPlugin {
             public void run() {
                 if ((text != null) && (text.length() > 0)) {
                     String myCharset = "CP1252";
-                    myPrinter.toast(charset);
                     if ((charset != null) && (charset.length() > 0)) {
                         myCharset = charset;
                     }
