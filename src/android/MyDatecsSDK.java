@@ -236,11 +236,11 @@ public class MyDatecsSDK extends CordovaPlugin {
                     try {
                         int myAlign = -1;
                         align = align.toLowerCase();
-                        if (align == 'left') {
+                        if (align == "left") {
                             myAlign = 0;
-                        } else if (align == 'center') {
+                        } else if (align == "center") {
                             myAlign = 1;
-                        } else if (align == 'right') {
+                        } else if (align == "right") {
                             myAlign = 2;
                         }
                         if (myAlign != -1) {
