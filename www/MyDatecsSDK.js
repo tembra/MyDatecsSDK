@@ -26,11 +26,19 @@ var myDatecsSDK = {
     },
 
     printText: function(text, charset, onSuccess, onError) {
-        exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text, charset]);
+        if (typeof(charset) == 'undefined') {
+            exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text]);
+        } else {
+            exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text, charset]);
+        }
     },
 
     printTaggedText: function(text, charset, onSuccess, onError) {
-        exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
+        if (typeof(charset) == 'undefined') {
+            exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text]);
+        } else {
+            exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
+        }
     },
 
     feedPaper: function(lines, onSuccess, onError) {
