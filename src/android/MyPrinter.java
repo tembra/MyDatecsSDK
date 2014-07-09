@@ -277,8 +277,8 @@ public class MyPrinter {
 			@Override
 			public void run() {
 				try {
-					mPrinter.printTaggedText(myText, myCharset);
-					callbackContext.success();
+					//mPrinter.printTaggedText(myText, myCharset);
+					callbackContext.success(myCharset);
 				} catch (IOException e) {
 					e.printStackTrace();
 					error("Falha ao imprimir: " + e.getMessage(), mRestart);
