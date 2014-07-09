@@ -148,7 +148,7 @@ public class MyDatecsSDK extends CordovaPlugin {
                     if ((charset != null) && (charset.length() > 0)) {
                         myCharset = charset;
                     }
-                    callbackContext.success(myCharset);
+                    callbackContext.success(myCharset.getClass().toString());
                     /*
                     try {
                         myPrinter.printTaggedText(text, myCharset, callbackContext);
