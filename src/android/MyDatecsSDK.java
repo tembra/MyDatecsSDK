@@ -46,7 +46,7 @@ public class MyDatecsSDK extends CordovaPlugin {
             this.printTaggedText(text, charset, callbackContext);
             return true;
         } else if (ACTION_FEED_PAPER.equals(action)) {
-            String lines = args.getLong(0);
+            int lines = args.getInt(0);
             this.feedPaper(lines, callbackContext);
             return true;
         } else if (ACTION_FLUSH.equals(action)) {
@@ -163,7 +163,7 @@ public class MyDatecsSDK extends CordovaPlugin {
     private void feedPaper(final int lines, final CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                if ((lines != null) && (lines > -1) && (lines < 256)) {
+                if ((lines > -1) && (lines < 256)) {
                     try {
                         myPrinter.feedPaper(lines, callbackContext);
                     } catch (Exception e) {
@@ -235,12 +235,12 @@ public class MyDatecsSDK extends CordovaPlugin {
                 if ((align != null) && (align.length() > 0)) {
                     try {
                         int myAlign = -1;
-                        align = align.toLowerCase();
-                        if (align.equals("left")) {
+                        String strAlign = align.toLowerCase();
+                        if (strAlign.equals("left")) {
                             myAlign = 0;
-                        } else if (align.equals("center")) {
+                        } else if (strAlign.equals("center")) {
                             myAlign = 1;
-                        } else if (align.equals("right")) {
+                        } else if (strAlign.equals("right")) {
                             myAlign = 2;
                         }
                         if (myAlign != -1) {
