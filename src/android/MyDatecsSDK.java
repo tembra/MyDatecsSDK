@@ -10,6 +10,8 @@ import org.json.JSONException;
 public class MyDatecsSDK extends CordovaPlugin {
     public static final String ACTION_CONNECT = "connect";
     public static final String ACTION_DISCONNECT = "disconnect";
+    public static final String ACTION_INIT = "init";
+    public static final String ACTION_FINISH = "finish";
     public static final String ACTION_RESET = "reset";
     public static final String ACTION_PRINT_TEXT = "printText";
     public static final String ACTION_PRINT_TAGGED_TEXT = "printTaggedText";
@@ -31,6 +33,12 @@ public class MyDatecsSDK extends CordovaPlugin {
             return true;
         } else if (ACTION_DISCONNECT.equals(action)) {
             this.disconnect(callbackContext);
+            return true;
+        } else if (ACTION_INIT.equals(action)) {
+            this.init(callbackContext);
+            return true;
+        } else if (ACTION_FINISH.equals(action)) {
+            this.finish(callbackContext);
             return true;
         } else if (ACTION_RESET.equals(action)) {
             this.reset(callbackContext);
@@ -97,6 +105,32 @@ public class MyDatecsSDK extends CordovaPlugin {
             public void run() {
                 try {
                     myPrinter.disconnect(callbackContext);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callbackContext.error(e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void init(final CallbackContext callbackContext) {
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    myPrinter.init(callbackContext);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callbackContext.error(e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void finish(final CallbackContext callbackContext) {
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    myPrinter.finish(callbackContext);
                 } catch (Exception e) {
                     e.printStackTrace();
                     callbackContext.error(e.getMessage());

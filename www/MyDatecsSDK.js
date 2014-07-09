@@ -21,25 +21,24 @@ var myDatecsSDK = {
         exec(onSuccess, onError, 'MyDatecsSDK', 'disconnect', []);
     },
 
+    init: function(onSuccess, onError) {
+        exec(onSuccess, onError, 'MyDatecsSDK', 'init', []);
+    },
+
+    finish: function(onSuccess, onError) {
+        exec(onSuccess, onError, 'MyDatecsSDK', 'finish', []);
+    },
+
     reset: function(onSuccess, onError) {
         exec(onSuccess, onError, 'MyDatecsSDK', 'reset', []);
     },
 
     printText: function(text, charset, onSuccess, onError) {
-        if (typeof(charset) == 'undefined') {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text]);
-        } else {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text, charset]);
-        }
+        exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text, charset]);
     },
 
     printTaggedText: function(text, charset, onSuccess, onError) {
         exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
-        /*if (typeof(charset) == 'undefined') {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text]);
-        } else {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
-        }*/
     },
 
     feedPaper: function(lines, onSuccess, onError) {

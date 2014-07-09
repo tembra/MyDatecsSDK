@@ -67,6 +67,7 @@ public class MyPrinter {
 	private String mAddress;
 	private CordovaInterface mCordova;
 	private CallbackContext mConnectCallbackContext;
+	private ProgressDialog mDialog;
 
 	public MyPrinter() {
 	}
@@ -174,6 +175,21 @@ public class MyPrinter {
 		});
 	}
 
+	private void doPrintJob(final Runnable job) {
+		mCordova.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						job.run();
+					}
+				});
+				t.start();
+			}
+		});
+	}
+
 	private void establishBluetoothConnection(final String address, final CallbackContext callbackContext) {
 		doJob(new Runnable() {
 			@Override
@@ -242,8 +258,44 @@ public class MyPrinter {
 		callbackContext.success();
 	}
 
+	public void init(final CallbackContext callbackContext) {
+		mCordova.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					final ProgressDialog dialog = new ProgressDialog(mCordova.getActivity());
+					dialog.setTitle("Impressora");
+					dialog.setMessage("Imprimindo..");
+					dialog.setCancelable(false);
+					dialog.setCanceledOnTouchOutside(false);
+					dialog.show();
+					mDialog = dialog;
+					callbackContext.success();
+				} catch (Exception e) {
+					e.printStackTrace();
+					error("Falha ao inicializar: " + e.getMessage(), mRestart);
+				}
+			}
+		});
+	}
+
+	public void finish(final CallbackContext callbackContext) {
+		mCordova.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mDialog.dismiss();
+					callbackContext.success();
+				} catch (Exception e) {
+					e.printStackTrace();
+					error("Falha ao finalizar: " + e.getMessage(), mRestart);
+				}
+			}
+		});
+	}
+
 	public void reset(final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -251,14 +303,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha reset: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void printText(final String myText, final String myCharset, final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -266,14 +318,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha printText: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void printTaggedText(final String myText, final String myCharset, final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -281,14 +333,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha printTaggedText: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void feedPaper(final int lines, final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -296,14 +348,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha feedPaper: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void flush(final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -311,14 +363,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha flush: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void selectPageMode(final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -326,14 +378,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha selectPageMode: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void selectStandardMode(final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -341,14 +393,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha selectStandardMode: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void printPage(final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -356,14 +408,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha printPage: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void setAlign(final int align, final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -371,14 +423,14 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha setAlign: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 	public void printSelfTest(final CallbackContext callbackContext) {
-		doJob(new Runnable() {
+		doPrintJob(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -386,10 +438,10 @@ public class MyPrinter {
 					callbackContext.success();
 				} catch (IOException e) {
 					e.printStackTrace();
-					error("Falha ao imprimir: " + e.getMessage(), mRestart);
+					error("Falha printSelfTest: " + e.getMessage(), mRestart);
 				}
 			}
-		}, "Impressora", "Imprimindo..");
+		});
 	}
 
 }
