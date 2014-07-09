@@ -43,8 +43,7 @@ public class MyDatecsSDK extends CordovaPlugin {
         } else if (ACTION_PRINT_TAGGED_TEXT.equals(action)) {
             String text = args.getString(0);
             String charset = args.getString(1);
-            callbackContext.success(charset);
-            //this.printTaggedText(text, charset, callbackContext);
+            this.printTaggedText(text, charset, callbackContext);
             return true;
         } else if (ACTION_FEED_PAPER.equals(action)) {
             int lines = args.getInt(0);
@@ -145,6 +144,7 @@ public class MyDatecsSDK extends CordovaPlugin {
             public void run() {
                 if ((text != null) && (text.length() > 0)) {
                     String myCharset = "CP1252";
+                    toast(charset);
                     if ((charset != null) && (charset.length() > 0)) {
                         myCharset = charset;
                     }
