@@ -144,11 +144,11 @@ public class MyDatecsSDK extends CordovaPlugin {
             public void run() {
                 if ((text != null) && (text.length() > 0)) {
                     String myCharset = "CP1252";
-                    callbackContext.success(myCharset);
+                    //callbackContext.success(myCharset);
                     if ((charset != null) && (charset.length() > 0)) {
                         myCharset = charset;
                     }
-                    //callbackContext.success(myCharset);
+                    callbackContext.success(myCharset);
                     /*
                     try {
                         myPrinter.printTaggedText(text, myCharset, callbackContext);
