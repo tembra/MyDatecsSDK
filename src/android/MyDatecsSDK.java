@@ -229,7 +229,7 @@ public class MyDatecsSDK extends CordovaPlugin {
         });
     }
 
-    private void setAlign(final int align, final CallbackContext callbackContext) {
+    private void setAlign(final String align, final CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 if ((align != null) && (align.length() > 0)) {
