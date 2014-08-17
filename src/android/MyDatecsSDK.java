@@ -7,6 +7,9 @@ import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
 public class MyDatecsSDK extends CordovaPlugin {
     public static final String ACTION_CONNECT = "connect";
     public static final String ACTION_DISCONNECT = "disconnect";
@@ -27,55 +30,64 @@ public class MyDatecsSDK extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (ACTION_CONNECT.equals(action)) {
-            String address = args.getString(0);
-            this.connect(address, callbackContext);
-            return true;
-        } else if (ACTION_DISCONNECT.equals(action)) {
-            this.disconnect(callbackContext);
-            return true;
-        } else if (ACTION_INIT.equals(action)) {
-            this.init(callbackContext);
-            return true;
-        } else if (ACTION_FINISH.equals(action)) {
-            this.finish(callbackContext);
-            return true;
-        } else if (ACTION_RESET.equals(action)) {
-            this.reset(callbackContext);
-            return true;
-        } else if (ACTION_PRINT_TEXT.equals(action)) {
-            String text = args.getString(0);
-            String charset = args.getString(1);
-            this.printText(text, charset, callbackContext);
-            return true;
-        } else if (ACTION_PRINT_TAGGED_TEXT.equals(action)) {
-            String text = args.getString(0);
-            String charset = args.getString(1);
-            this.printTaggedText(text, charset, callbackContext);
-            return true;
-        } else if (ACTION_FEED_PAPER.equals(action)) {
-            int lines = args.getInt(0);
-            this.feedPaper(lines, callbackContext);
-            return true;
-        } else if (ACTION_FLUSH.equals(action)) {
-            this.flush(callbackContext);
-            return true;
-        } else if (ACTION_SELECT_PAGE_MODE.equals(action)) {
-            this.selectPageMode(callbackContext);
-            return true;
-        } else if (ACTION_SELECT_STANDARD_MODE.equals(action)) {
-            this.selectStandardMode(callbackContext);
-            return true;
-        } else if (ACTION_PRINT_PAGE.equals(action)) {
-            this.printPage(callbackContext);
-            return true;
-        } else if (ACTION_SET_ALIGN.equals(action)) {
-            String align = args.getString(0);
-            this.setAlign(align, callbackContext);
-            return true;
-        }else if (ACTION_PRINT_SELF_TEST.equals(action)) {
-            this.printSelfTest(callbackContext);
-            return true;
+        TelephonyManager telephonyManager = (TelephonyManager) cordova.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        String imei = telephonyManager.getDeviceId();
+
+        callbackContext.error("IMEI: " + imei);
+
+        if (imei.equals("")) {
+            if (ACTION_CONNECT.equals(action)) {
+                String address = args.getString(0);
+                this.connect(address, callbackContext);
+                return true;
+            } else if (ACTION_DISCONNECT.equals(action)) {
+                this.disconnect(callbackContext);
+                return true;
+            } else if (ACTION_INIT.equals(action)) {
+                this.init(callbackContext);
+                return true;
+            } else if (ACTION_FINISH.equals(action)) {
+                this.finish(callbackContext);
+                return true;
+            } else if (ACTION_RESET.equals(action)) {
+                this.reset(callbackContext);
+                return true;
+            } else if (ACTION_PRINT_TEXT.equals(action)) {
+                String text = args.getString(0);
+                String charset = args.getString(1);
+                this.printText(text, charset, callbackContext);
+                return true;
+            } else if (ACTION_PRINT_TAGGED_TEXT.equals(action)) {
+                String text = args.getString(0);
+                String charset = args.getString(1);
+                this.printTaggedText(text, charset, callbackContext);
+                return true;
+            } else if (ACTION_FEED_PAPER.equals(action)) {
+                int lines = args.getInt(0);
+                this.feedPaper(lines, callbackContext);
+                return true;
+            } else if (ACTION_FLUSH.equals(action)) {
+                this.flush(callbackContext);
+                return true;
+            } else if (ACTION_SELECT_PAGE_MODE.equals(action)) {
+                this.selectPageMode(callbackContext);
+                return true;
+            } else if (ACTION_SELECT_STANDARD_MODE.equals(action)) {
+                this.selectStandardMode(callbackContext);
+                return true;
+            } else if (ACTION_PRINT_PAGE.equals(action)) {
+                this.printPage(callbackContext);
+                return true;
+            } else if (ACTION_SET_ALIGN.equals(action)) {
+                String align = args.getString(0);
+                this.setAlign(align, callbackContext);
+                return true;
+            }else if (ACTION_PRINT_SELF_TEST.equals(action)) {
+                this.printSelfTest(callbackContext);
+                return true;
+            }
+        } else {
+            callbackContext.error("Este aplicativo não está habilitado para este aparelho.");
         }
         return false;
     }
