@@ -9,6 +9,8 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.app.Activity;
+import android.app.ProgressDialog;
 
 public class MyDatecsSDK extends CordovaPlugin {
     public static final String ACTION_CONNECT = "connect";
