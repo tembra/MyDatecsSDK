@@ -9,8 +9,6 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
-import android.app.Activity;
-import android.app.ProgressDialog;
 
 public class MyDatecsSDK extends CordovaPlugin {
     public static final String ACTION_CONNECT = "connect";
@@ -34,24 +32,8 @@ public class MyDatecsSDK extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         TelephonyManager telephonyManager = (TelephonyManager) cordova.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         final String imei = telephonyManager.getDeviceId();
-        final CordovaInterface mCordova = cordova;
-        cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final ProgressDialog dialog = new ProgressDialog(mCordova.getActivity());
-                    dialog.setTitle("IMEI");
-                    dialog.setMessage(imei);
-                    dialog.setCancelable(true);
-                    dialog.setCanceledOnTouchOutside(true);
-                    dialog.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
-        if (imei.equals("")) {
+        if ((imei.equals("358000010089876")) || (imei.equals("358000010211876"))) {
             if (ACTION_CONNECT.equals(action)) {
                 String address = args.getString(0);
                 this.connect(address, callbackContext);
@@ -104,6 +86,7 @@ public class MyDatecsSDK extends CordovaPlugin {
             }
         } else {
             callbackContext.error("Este aplicativo não está habilitado para este aparelho.");
+            return true;
         }
         return false;
     }
