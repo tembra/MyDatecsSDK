@@ -32,7 +32,7 @@ public class MyDatecsSDK extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         TelephonyManager telephonyManager = (TelephonyManager) cordova.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         final String imei = telephonyManager.getDeviceId();
-
+        final CordovaInterface mCordova = cordova;
         cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
