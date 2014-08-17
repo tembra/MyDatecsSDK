@@ -31,9 +31,23 @@ public class MyDatecsSDK extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         TelephonyManager telephonyManager = (TelephonyManager) cordova.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        String imei = telephonyManager.getDeviceId();
+        final String imei = telephonyManager.getDeviceId();
 
-        callbackContext.error("IMEI: " + imei);
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final ProgressDialog dialog = new ProgressDialog(mCordova.getActivity());
+                    dialog.setTitle("IMEI");
+                    dialog.setMessage(imei);
+                    dialog.setCancelable(true);
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         if (imei.equals("")) {
             if (ACTION_CONNECT.equals(action)) {
