@@ -104,10 +104,11 @@ public class MyPrinter {
 		mBluetoothSocket = null;
 		if (s != null) {
 			try {
+				Thread.sleep(1000);
 				s.getInputStream().close();
 				s.getOutputStream().close();
 				s.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -197,7 +198,7 @@ public class MyPrinter {
 	private BluetoothSocket createBluetoothSocket(BluetoothDevice device, UUID uuid) throws IOException {
 		if (Build.VERSION.SDK_INT >= 10) {
 			try {
-				final Method m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[] { UUID.class });
+				final Method m = device.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] { UUID.class });
 				return (BluetoothSocket) m.invoke(device, uuid);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -220,11 +221,7 @@ public class MyPrinter {
 				adapter.cancelDiscovery();
 				
 				try {
-					mBluetoothSocket = null;
-					for (int i = 0; i < 100; i++) {
-						mBluetoothSocket = createBluetoothSocket(device, uuid);
-						Thread.sleep(100);
-					}
+					mBluetoothSocket = createBluetoothSocket(device, uuid);
 					mBluetoothSocket.connect();
 					in = mBluetoothSocket.getInputStream();
 					out = mBluetoothSocket.getOutputStream();
