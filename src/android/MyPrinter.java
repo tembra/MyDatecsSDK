@@ -231,7 +231,7 @@ public class MyPrinter {
 					mBluetoothSocket.connect();
 					in = mBluetoothSocket.getInputStream();
 					out = mBluetoothSocket.getOutputStream();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 					error("Falha ao conectar: " +  e.getMessage(), mRestart);
 					return;
