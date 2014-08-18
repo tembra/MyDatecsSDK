@@ -101,6 +101,8 @@ public class MyPrinter {
 		mBluetoothSocket = null;
 		if (s != null) {
 			try {
+				s.getInputStream().close();
+				s.getOutputStream().close();
 				s.close();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -124,14 +126,13 @@ public class MyPrinter {
 	}
 
 	private void error(final String text, boolean resetConnection) {
+		mCordova.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(mCordova.getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+			}
+		});
 		if (resetConnection) {
-			mCordova.getActivity().runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(mCordova.getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-				}
-			});
-				
 			connect(mConnectCallbackContext);
 		}
 	}
