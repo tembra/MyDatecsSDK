@@ -218,6 +218,16 @@ public class MyPrinter {
 				InputStream in = null;
 				OutputStream out = null;
 				
+				adapter.startDiscovery();
+				for (int i = 0; i < 50; i++) {
+					try {
+						Thread.sleep(100);
+					} catch (Exception e) {
+						e.printStackTrace();
+						error("Falha ao conectar: " + e.getMessage(), mRestart);
+						return;
+					}
+				}
 				adapter.cancelDiscovery();
 				
 				try {
