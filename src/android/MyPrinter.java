@@ -223,9 +223,6 @@ public class MyPrinter {
 					mBluetoothSocket = null;
 					for (int i = 0; i < 10; i++) {
 						mBluetoothSocket = createBluetoothSocket(device, uuid);
-						if (mBluetoothSocket != null) {
-							break;
-						}
 						Thread.sleep(100);
 					}
 					mBluetoothSocket.connect();
