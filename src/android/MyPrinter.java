@@ -18,6 +18,9 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.widget.Toast;
 
+import android.os.Build;
+import java.lang.reflect.Method;
+
 public class MyPrinter {
 
 	private final ProtocolAdapter.ChannelListener mChannelListener = new ProtocolAdapter.ChannelListener() {
