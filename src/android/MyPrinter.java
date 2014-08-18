@@ -191,6 +191,19 @@ public class MyPrinter {
 		});
 	}
 
+	private BluetoothSocket createBluetoothSocket(BluetoothDevice device, UUID uuid) throws IOException {
+		if (Build.VERSION.SDK_INT >= 10) {
+			try {
+				final Method m = device.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] { UUID.class });
+				return (BluetoothSocket) m.invoke(device, uuid);
+			} catch (Exception e) {
+				e.printStackTrace();
+				error("Falha ao criar comunicação: " + e.getMessage(), mRestart);
+			}
+		}
+		return device.createRfcommSocketToServiceRecord(uuid);
+	}
+
 	private void establishBluetoothConnection(final String address, final CallbackContext callbackContext) {
 		doJob(new Runnable() {
 			@Override
@@ -204,7 +217,7 @@ public class MyPrinter {
 				adapter.cancelDiscovery();
 				
 				try {
-					mBluetoothSocket = device.createRfcommSocketToServiceRecord(uuid);
+					mBluetoothSocket = createBluetoothSocket(device, uuid);
 					mBluetoothSocket.connect();
 					in = mBluetoothSocket.getInputStream();
 					out = mBluetoothSocket.getOutputStream();
