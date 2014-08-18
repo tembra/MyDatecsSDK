@@ -197,7 +197,8 @@ public class MyPrinter {
 	private BluetoothSocket createBluetoothSocket(BluetoothDevice device, UUID uuid) throws IOException {
 		if (Build.VERSION.SDK_INT >= 10) {
 			try {
-				final Method m = device.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] { UUID.class });
+				//final Method m = device.getClass().getMethod("createRfcommSocketToServiceRecord", new Class[] { UUID.class });
+				final Method m = device.getClass().getMethod("createRfcommSocket", new Class[] { UUID.class });
 				return (BluetoothSocket) m.invoke(device, uuid);
 			} catch (Exception e) {
 				e.printStackTrace();
