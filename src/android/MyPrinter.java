@@ -104,10 +104,11 @@ public class MyPrinter {
 		mBluetoothSocket = null;
 		if (s != null) {
 			try {
+				Thread.sleep(1000);
 				s.getInputStream().close();
 				s.getOutputStream().close();
 				s.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -221,10 +222,11 @@ public class MyPrinter {
 				
 				try {
 					mBluetoothSocket = createBluetoothSocket(device, uuid);
+					Thread.sleep(2000);
 					mBluetoothSocket.connect();
 					in = mBluetoothSocket.getInputStream();
 					out = mBluetoothSocket.getOutputStream();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 					error("Falha ao conectar: " + e.getMessage(), mRestart);
 					return;
