@@ -104,9 +104,7 @@ public class MyPrinter {
 		mBluetoothSocket = null;
 		if (s != null) {
 			try {
-				Thread.sleep(1000);
-				s.getInputStream().close();
-				s.getOutputStream().close();
+				Thread.sleep(50);
 				s.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -217,22 +215,12 @@ public class MyPrinter {
 				UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 				InputStream in = null;
 				OutputStream out = null;
-				
-				adapter.startDiscovery();
-				for (int i = 0; i < 50; i++) {
-					try {
-						Thread.sleep(100);
-					} catch (Exception e) {
-						e.printStackTrace();
-						error("Falha ao conectar: " + e.getMessage(), mRestart);
-						return;
-					}
-				}
+
 				adapter.cancelDiscovery();
 				
 				try {
 					mBluetoothSocket = createBluetoothSocket(device, uuid);
-					Thread.sleep(2000);
+					Thread.sleep(50);
 					mBluetoothSocket.connect();
 					in = mBluetoothSocket.getInputStream();
 					out = mBluetoothSocket.getOutputStream();
