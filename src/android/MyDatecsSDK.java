@@ -10,7 +10,7 @@ import org.json.JSONException;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
-import java.util;
+import java.util.List;
 import java.util.Arrays;
 
 public class MyDatecsSDK extends CordovaPlugin {
