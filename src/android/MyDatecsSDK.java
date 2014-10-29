@@ -33,7 +33,13 @@ public class MyDatecsSDK extends CordovaPlugin {
         TelephonyManager telephonyManager = (TelephonyManager) cordova.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         final String imei = telephonyManager.getDeviceId();
 
-        if ((imei.equals("358000010089876")) || (imei.equals("358000010211876"))) {
+        List<String> listaIMEI = Array.asList(
+            "358000010089876", //original-1
+            "358000010211876", //original-2
+            "355808021792806", //novo-1
+            "355808021792814"  //novo-2
+        );
+        if (listaIMEI.contains(imei)) {
             if (ACTION_CONNECT.equals(action)) {
                 String address = args.getString(0);
                 this.connect(address, callbackContext);
