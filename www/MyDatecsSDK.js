@@ -14,87 +14,59 @@ var myDatecsSDK = {
     },
 
     connect: function(address, onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'connect', [address]);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'connect', [address]);
     },
 
     disconnect: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'disconnect', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'disconnect', []);
     },
 
     init: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'init', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'init', []);
     },
 
     finish: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'finish', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'finish', []);
     },
 
     reset: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'reset', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'reset', []);
     },
 
     printText: function(text, charset, onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text, charset]);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'printText', [text, charset]);
     },
 
     printTaggedText: function(text, charset, onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'printTaggedText', [text, charset]);
     },
 
     feedPaper: function(lines, onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'feedPaper', [lines]);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'feedPaper', [lines]);
     },
 
     flush: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'flush', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'flush', []);
     },
 
     selectPageMode: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'selectPageMode', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'selectPageMode', []);
     },
 
     selectStandardMode: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'selectStandardMode', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'selectStandardMode', []);
     },
 
     printPage: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printPage', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'printPage', []);
     },
 
     setAlign: function(align, onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'setAlign', [align]);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'setAlign', [align]);
     },
 
     printSelfTest: function(onSuccess, onError) {
-        setTimeout(function() {
-            exec(onSuccess, onError, 'MyDatecsSDK', 'printSelfTest', []);
-        }, 1000);
+        exec(onSuccess, onError, 'MyDatecsSDK', 'printSelfTest', []);
     }
 };
 
