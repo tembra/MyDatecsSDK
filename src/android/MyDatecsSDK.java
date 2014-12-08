@@ -42,7 +42,7 @@ public class MyDatecsSDK extends CordovaPlugin {
             "355808021792806", //novo-1
             "355808021792814"  //novo-2
         );
-        if (listaIMEI.contains(imei)) {
+        //if (listaIMEI.contains(imei)) {
             if (ACTION_CONNECT.equals(action)) {
                 String address = args.getString(0);
                 this.connect(address, callbackContext);
@@ -89,14 +89,16 @@ public class MyDatecsSDK extends CordovaPlugin {
                 String align = args.getString(0);
                 this.setAlign(align, callbackContext);
                 return true;
-            }else if (ACTION_PRINT_SELF_TEST.equals(action)) {
+            } else if (ACTION_PRINT_SELF_TEST.equals(action)) {
                 this.printSelfTest(callbackContext);
                 return true;
             }
+        /*
         } else {
             callbackContext.error("Este aplicativo não está habilitado para este aparelho.");
             return true;
         }
+        */
         return false;
     }
 
