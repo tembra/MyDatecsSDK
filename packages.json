@@ -1,0 +1,15 @@
+{
+  "name": "MyDatecsSDK",
+  "version": "0.1.0",
+  "description": "Allows access to Datecs printer SDK functions.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tembra/MyDatecsSDK.git"
+  },
+  "author": "Thieres Tembra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tembra/MyDatecsSDK/issues"
+  },
+  "homepage": "https://github.com/tembra/MyDatecsSDK"
+}
