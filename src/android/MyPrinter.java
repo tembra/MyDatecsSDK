@@ -11,7 +11,9 @@ import org.apache.cordova.CallbackContext;
 import com.datecs.api.printer.Printer;
 import com.datecs.api.printer.ProtocolAdapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -156,7 +158,7 @@ public class MyPrinter {
 			@Override
 			public void run() {
 				// Progress dialog available due job execution
-				final ProgressDialog dialog = new ProgressDialog(mCordova.getActivity());
+				final ProgressDialog dialog = createProgressDialog(mCordova);
 				dialog.setTitle(jobTitle);
 				dialog.setMessage(jobName);
 				dialog.setCancelable(false);
@@ -280,7 +282,7 @@ public class MyPrinter {
 			@Override
 			public void run() {
 				try {
-					final ProgressDialog dialog = new ProgressDialog(mCordova.getActivity());
+					final ProgressDialog dialog = createProgressDialog(mCordova);
 					dialog.setTitle("Impressora");
 					dialog.setMessage("Imprimindo..");
 					dialog.setCancelable(false);
@@ -460,5 +462,15 @@ public class MyPrinter {
 			}
 		});
 	}
+
+    @SuppressLint("InlinedApi")
+    private ProgressDialog createProgressDialog(CordovaInterface cordova) {
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return new ProgressDialog(cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        } else {
+            return new ProgressDialog(cordova.getActivity());
+        }
+    }
 
 }
