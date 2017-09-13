@@ -102,15 +102,20 @@ public class MyPrinter {
 	}
 
 	private synchronized void closeBluetoothConnection() {
-		BluetoothSocket s = mBluetoothSocket;
-		mBluetoothSocket = null;
-		if (s != null) {
+		if (mBluetoothSocket != null) {
 			try {
 				Thread.sleep(50);
-				s.close();
+				mBluetoothSocket.getInputStream().close();
+				
+				Thread.sleep(50);
+				mBluetoothSocket.getOutputStream().close();
+
+				Thread.sleep(50);
+				mBluetoothSocket.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			mBluetoothSocket = null;
 		}
 	}
 
