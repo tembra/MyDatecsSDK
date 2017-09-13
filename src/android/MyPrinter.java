@@ -65,6 +65,7 @@ public class MyPrinter {
 		}
 	};
 
+	private ProtocolAdapter.Channel mChannelPrinter;
 	private Printer mPrinter;
 	private ProtocolAdapter mProtocolAdapter;
 	private BluetoothSocket mBluetoothSocket;
@@ -120,6 +121,15 @@ public class MyPrinter {
 	}
 
 	private synchronized void closePrinterConnection() {
+		if (mChannelPrinter != null) {
+			try {
+				mChannelPrinter.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mChannelPrinter = null;
+		}
+
 		if (mPrinter != null) {
 			mPrinter.release();
 		}
@@ -252,8 +262,8 @@ public class MyPrinter {
 		mProtocolAdapter = new ProtocolAdapter(inputStream, outputStream);
 
 		if (mProtocolAdapter.isProtocolEnabled()) {
-			final ProtocolAdapter.Channel channel = mProtocolAdapter.getChannel(ProtocolAdapter.CHANNEL_PRINTER);
-			channel.setListener(mChannelListener);
+			mChannelPrinter = mProtocolAdapter.getChannel(ProtocolAdapter.CHANNEL_PRINTER);
+			mChannelPrinter.setListener(mChannelListener);
 			// Create new event pulling thread
 			new Thread(new Runnable() {
 				@Override
@@ -266,7 +276,10 @@ public class MyPrinter {
 						}
 						
 						try {
-							channel.pullEvent();
+							if (mChannelPrinter == null) {
+								break;
+							}
+							mChannelPrinter.pullEvent();
 						} catch (IOException e) {
 							e.printStackTrace();
 							error(e.getMessage(), mRestart);
@@ -275,7 +288,7 @@ public class MyPrinter {
 					}
 				}
 			}).start();
-			mPrinter = new Printer(channel.getInputStream(), channel.getOutputStream());
+			mPrinter = new Printer(mChannelPrinter.getInputStream(), mChannelPrinter.getOutputStream());
 		} else {
 			mPrinter = new Printer(mProtocolAdapter.getRawInputStream(), mProtocolAdapter.getRawOutputStream());
 		}
